@@ -1,3 +1,11 @@
+/**
+ * @Author Anshpreet Singh
+ *
+ * Pyramid is a class that represents a pyramid shape.
+ * It extends the Shape class and calculates the base area
+ * and volume using the side length and height.
+ */
+
 package shapes;
 
 public class Pyramid extends Shape {

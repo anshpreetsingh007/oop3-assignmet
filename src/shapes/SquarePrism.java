@@ -1,3 +1,11 @@
+/**
+ * @Author Anshpreet Singh
+ *
+ * SquarePrism represents a prism with a square base.
+ * It extends the Prism class and calculates the base
+ * area and volume using the side length and height.
+ */
+
 package shapes;
 
 

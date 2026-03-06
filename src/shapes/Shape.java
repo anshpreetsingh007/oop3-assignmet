@@ -1,3 +1,11 @@
+/**
+ * @Author Anshpreet Singh
+ *
+ * Shape is the main abstract class for all 3D shapes in the program.
+ * It stores the height of the shape and defines methods that every
+ * shape must implement, such as calculating base area and volume.
+ */
+
 package shapes;
 
 import java.util.Comparator;
