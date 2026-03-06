@@ -1,4 +1,4 @@
-apackage shapes;
+package shapes;
 
 /**
  * @Author Alexander Carlson
