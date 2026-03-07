@@ -2,13 +2,12 @@ package utilities;
 
 import java.util.Comparator;
 
+
 /**
- * @author Alexander Carlson
+ * QuickSort using Median-of-3 pivot selection.
+ * Sorts in descending order.
  * 
- * Quick Sort implementation for sorting objects in descending order using the Median-of-3
- * pivot selection strategy. O(n log n) average time complexity, O(n^2) worst case.
- * Median-of-3 reduces the likelihood of worst-case behaviour on sorted or nearly-sorted data.
- * 
+ * @author Karandeep Singh
  * <p>
  * Precondition: The <code>array</code> must not be <code>null</code> and must contain at least one element.
  * </p>
@@ -27,70 +26,79 @@ import java.util.Comparator;
 public class QuickSort<T extends Comparable<T>> implements SortingUtility<T>
 {
 	@Override
-	public void sort( T[] array, Comparator<? super T> comparator )
-	{
-		quickSortHelper( array, 0, array.length - 1, comparator );
-	}
+    public void sort(T[] array, Comparator<? super T> comparator)
+    {
+        if (array == null || array.length <= 1)
+        {
+            return;
+        }
 
-	// Recursively partitions the array and sorts each partition
-	private void quickSortHelper( T[] array, int low, int high, Comparator<? super T> comparator )
-	{
-		if ( low < high )
-		{
-			int pivotIndex = partition( array, low, high, comparator );
-			quickSortHelper( array, low, pivotIndex - 1, comparator );
-			quickSortHelper( array, pivotIndex + 1, high, comparator );
-		}
-	}
+        quickSort(array, 0, array.length - 1, comparator);
+    }
 
-	// Median-of-3 partition: picks median of first, middle, last as pivot to reduce worst-case risk
-	private int partition( T[] array, int low, int high, Comparator<? super T> comparator )
-	{
-		int mid = low + ( high - low ) / 2;
+    private void quickSort(T[] array, int left, int right, Comparator<? super T> comparator)
+    {
+        if (left >= right)
+        {
+            return;
+        }
 
-		// Sort low, mid, high so the median value ends up at mid
-		if ( comparator.compare( array[low], array[mid] ) < 0 )
-		{
-			T temp    = array[low];
-			array[low] = array[mid];
-			array[mid] = temp;
-		}
-		if ( comparator.compare( array[low], array[high] ) < 0 )
-		{
-			T temp     = array[low];
-			array[low]  = array[high];
-			array[high] = temp;
-		}
-		if ( comparator.compare( array[mid], array[high] ) < 0 )
-		{
-			T temp     = array[mid];
-			array[mid]  = array[high];
-			array[high] = temp;
-		}
+        int pivotIndex = partition(array, left, right, comparator);
 
-		// place median (now at mid) at high to use as pivot
-		T pivot    = array[mid];
-		array[mid]  = array[high];
-		array[high] = pivot;
+        quickSort(array, left, pivotIndex - 1, comparator);
+        quickSort(array, pivotIndex + 1, right, comparator);
+    }
 
-		// Partition: elements greater than pivot go left (descending)
-		int i = low - 1;
-		for ( int j = low; j < high; j++ )
-		{
-			if ( comparator.compare( array[j], pivot ) > 0 )
-			{
-				i++;
-				T temp    = array[i];
-				array[i]  = array[j];
-				array[j]  = temp;
-			}
-		}
+    private int partition(T[] array, int left, int right, Comparator<? super T> comparator)
+    {
+        int mid = (left + right) / 2;
 
-		// Place pivot in its final sorted position
-		T temp        = array[i + 1];
-		array[i + 1]  = array[high];
-		array[high]   = temp;
+        // Median-of-3 ordering
+        if (comparator.compare(array[left], array[mid]) < 0)
+        {
+            swap(array, left, mid);
+        }
 
-		return i + 1;
+        if (comparator.compare(array[left], array[right]) < 0)
+        {
+            swap(array, left, right);
+        }
+
+        if (comparator.compare(array[mid], array[right]) < 0)
+        {
+            swap(array, mid, right);
+        }
+
+        // Use median as pivot
+        swap(array, mid, right);
+        T pivot = array[right];
+
+        int i = left - 1;
+
+        for (int j = left; j < right; j++)
+        {
+            if (comparator.compare(array[j], pivot) > 0)
+            {
+                i++;
+                swap(array, i, j);
+            }
+        }
+
+        swap(array, i + 1, right);
+
+        return i + 1;
+    }
+
+    private void swap(T[] array, int i, int j)
+    {
+        T temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+	
+	public String name() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

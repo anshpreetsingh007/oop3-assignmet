@@ -3,12 +3,9 @@ package utilities;
 import java.util.Comparator;
 
 /**
- * @author Alexander Carlson
+ * Insertion Sort that sorts elements in descending order.
  * 
- * Insertion Sort implementation for sorting objects in descending order. O(n^2) time complexity.
- * Builds a sorted portion one element at a time by inserting each new element into its correct
- * position among the already-sorted elements.
- * 
+ * @author Karandeep Singh
  * <p>
  * Precondition: The <code>array</code> must not be <code>null</code> and must contain at least one element.
  * </p>
@@ -26,23 +23,24 @@ import java.util.Comparator;
  */
 public class InsertionSort<T extends Comparable<T>> implements SortingUtility<T>
 {
-	@Override
-	public void sort( T[] array, Comparator<? super T> comparator )
-	{
-		int n = array.length;
+	   @Override
+	    public void sort(T[] array, Comparator<? super T> comparator)
+	    {
+	        int n = array.length;
 
-		for ( int i = 1; i < n; i++ )
-		{
-			T key = array[i];
-			int j = i - 1;
+	        for (int i = 1; i < n; i++)
+	        {
+	            T key = array[i];
+	            int j = i - 1;
 
-			// shift elements that are less than key one position to the right (descending)
-			while ( j >= 0 && comparator.compare( array[j], key ) < 0 )
-			{
-				array[j + 1] = array[j];
-				j--;
-			}
-			array[j + 1] = key;
-		}
+	            // shift smaller elements to the right for descending order
+	            while (j >= 0 && comparator.compare(array[j], key) < 0)
+	            {
+	                array[j + 1] = array[j];
+	                j--;
+	            }
+
+	            array[j + 1] = key;
+	        }
+	    }
 	}
-}

@@ -1,3 +1,11 @@
+/**
+ * @Author Diego Galvis
+ *
+ * ShapeFileReader is a utility class used to read shape data from a text file.
+ * It reads each line of the file, creates the correct Shape object based on
+ * the shape type, and stores all shapes in an array.
+ */
+
 package utilities;
 
 import shapes.*;
